@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La pregunta del día</title>
+  <style>
+    :root {
+      --azul: #0b6fb8;
+      --azul-claro: #eaf4fb;
+      --oscuro: #1f2937;
+      --gris: #6b7280;
+      --borde: #d1d5db;
+      --fondo: #f8fafc;
+      --exito: #166534;
+      --exito-fondo: #dcfce7;
+      --aviso: #92400e;
+      --aviso-fondo: #fef3c7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fondo);
+      color: var(--oscuro);
+      line-height: 1.5;
+    }
+
+    .contenedor {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .tarjeta {
+      background: #fff;
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      color: var(--azul);
+    }
+
+    p { margin: 0 0 12px; }
+
+    .subtitulo {
+      color: var(--gris);
+      margin-bottom: 18px;
+    }
+
+    .nota {
+      border-left: 5px solid var(--azul);
+      background: var(--azul-claro);
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    .aviso {
+      border-left: 5px solid #f59e0b;
+      background: var(--aviso-fondo);
+      color: var(--aviso);
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-top: 14px;
+    }
+
+    .pregunta {
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 12px 0 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      font: inherit;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .cuadricula {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primario {
+      background: var(--azul);
+      color: white;
+    }
+
+    .secundario {
+      background: #e5e7eb;
+      color: var(--oscuro);
+    }
+
+    .estado {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .estado.exito {
+      display: block;
+      background: var(--exito-fondo);
+      color: var(--exito);
+    }
+
+    .estado.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    @media (max-width: 720px) {
+      .cuadricula {
+        grid-template-columns: 1fr;
+      }
+
+      .contenedor {
+        padding: 14px;
+      }
+
+      .tarjeta {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <div class="tarjeta">
+      <h1>La pregunta del día</h1>
+      <p class="subtitulo">Seminario — Cambio climático</p>
+
+      <div class="nota" style="margin-top: 18px;">
+        <strong>Seating chart / Distribución de asientos:</strong><br>
+        Usa la imagen para identificar tu grupo de mesa antes de escribir las respuestas.
+      </div>
+      <div style="margin-top: 16px; text-align: center;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8gAAAJsCAYAAAAhqIpOAAABVmlDQ1BJQ0MgUHJvZmlsZQAAKJF1kM8rw3EYx1/7oZVJkpwcdhs10oicNMooh5n5efv6bja1zbfvvmLiL+Ds7ORISa0c5KJcdlJ+/QXiqBahr+ezYZt46ul59e7d87x7wOnWDCPtBjJZy4yGR3zzC4s+4hS7lQxk0d+Y2Y0YVvJvVY7M0k2v3pX7J9j9pKzQhY2p6E8y7Wlq8eT3oQk8w1g9+f0Lq5mqc9hQ2r0s5t5yP9m2f1k9o2cKz8XQWk3b8Gv2M9oX2Y8n8h4mY4c3cW1Jm0Y2mVh0s9x5k9w4lZk8s9QX7l0S0m2y5mVQd7iK0k0l1N0n2h7g4V2yV3c7r0k8QwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" alt="Distribución de asientos" style="max-width: 100%; height: auto; border: 1px solid var(--borde); border-radius: 12px;" />
+      </div>
+
+      <div class="nota">
+        <strong>Instrucciones:</strong><br>
+        Responde las preguntas de manera individual. Después comparte tus ideas con tu grupo de mesa. Escribe tu nombre y selecciona tu grupo. El grupo debe elegir un secretario o una secretaria, quien será responsable de escribir la perspectiva del grupo. Después de enviar sus respuestas, podrán leer las respuestas de otros grupos.
+      </div>
+
+      <div class="aviso">
+        Debes escribir tu nombre y también indicar quién fue el secretario o la secretaria del grupo. La participación será revisada.
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <form id="formularioBellwork">
+        <div class="cuadricula" style="grid-template-columns: 1fr 1fr;">
+          <div>
+            <label for="groupName">Grupo / Mesa</label>
+            <select id="groupName" name="groupName" required>
+              <option value="">Selecciona tu grupo</option>
+              <option>Grupo 1</option>
+              <option>Grupo 2</option>
+              <option>Grupo 3</option>
+              <option>Grupo 4</option>
+              <option>Grupo 5</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="studentNames">Tu nombre</label>
+            <input id="studentNames" name="studentNames" type="text" placeholder="Escribe tu nombre" required />
+          </div>
+
+          <div>
+            <label for="secretario">Secretario/a del grupo</label>
+            <input id="secretario" name="secretario" type="text" placeholder="Escribe el nombre del secretario o la secretaria" required />
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <label for="question1">1. ¿Por qué diferentes personas pueden tener opiniones distintas sobre el mismo problema ambiental?</label>
+          <textarea id="question1" name="question1" required></textarea>
+        </div>
+
+        <div class="pregunta">
+          <label for="question2">2. ¿Qué tipo de perspectivas crees que influyen cuando las personas discuten el cambio climático?</label>
+          <textarea id="question2" name="question2" required></textarea>
+        </div>
+
+        <div class="pregunta">
+          <label for="sintesisGrupo">Síntesis final del grupo (la completa únicamente el secretario o la secretaria)</label>
+          <textarea id="sintesisGrupo" name="sintesisGrupo" placeholder="Escribe aquí la perspectiva o síntesis final del grupo" required></textarea>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="primario">Enviar respuestas</button>
+          <button type="reset" class="secundario">Borrar</button>
+        </div>
+
+        <div id="statusBox" class="estado"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'YOUR_SCRIPT_URL_HERE';
+    const formulario = document.getElementById('formularioBellwork');
+    const estado = document.getElementById('statusBox');
+
+    function mostrarEstado(mensaje, tipo) {
+      estado.textContent = mensaje;
+      estado.className = 'estado ' + tipo;
+    }
+
+    formulario.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (SCRIPT_URL === 'YOUR_SCRIPT_URL_HERE') {
+        mostrarEstado('Falta completar la configuración del formulario.', 'error');
+        return;
+      }
+
+      const formData = new FormData(formulario);
+      const payload = {
+        timestamp: new Date().toLocaleString(),
+        groupName: formData.get('groupName'),
+        studentNames: formData.get('studentNames'),
+        secretario: formData.get('secretario'),
+        question1: formData.get('question1'),
+        question2: formData.get('question2'),
+        sintesisGrupo: formData.get('sintesisGrupo')
+      };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        mostrarEstado('Sus respuestas se enviaron correctamente.', 'exito');
+        formulario.reset();
+      } catch (error) {
+        mostrarEstado('Hubo un problema al enviar las respuestas. Inténtenlo de nuevo.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>
