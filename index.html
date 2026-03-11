@@ -1,237 +1,284 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>La pregunta del día</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La pregunta del día</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f6f8;
+      margin:0;
+      padding:0;
+      color:#1f2937;
+    }
 
-<style>
+    .contenedor{
+      max-width:1000px;
+      margin:auto;
+      padding:30px;
+    }
 
-body{
-font-family: Arial, sans-serif;
-background:#f4f6f8;
-margin:0;
-padding:0;
-}
+    .tarjeta{
+      background:white;
+      padding:25px;
+      border-radius:12px;
+      margin-bottom:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
 
-.contenedor{
-max-width:1000px;
-margin:auto;
-padding:30px;
-}
+    h1{
+      color:#0b6fb8;
+      margin-top:0;
+      margin-bottom:10px;
+    }
 
-.tarjeta{
-background:white;
-padding:25px;
-border-radius:10px;
-margin-bottom:20px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
+    h2{
+      color:#0b6fb8;
+      margin-top:0;
+    }
 
-h1{
-color:#0b6fb8;
-margin-top:0;
-}
+    .nota{
+      background:#eaf4fb;
+      padding:14px;
+      border-left:5px solid #0b6fb8;
+      border-radius:8px;
+      line-height:1.6;
+    }
 
-.nota{
-background:#eaf4fb;
-padding:12px;
-border-left:5px solid #0b6fb8;
-border-radius:6px;
-}
+    .aviso{
+      background:#fff4d6;
+      padding:14px;
+      border-left:5px solid orange;
+      border-radius:8px;
+      margin-top:12px;
+      line-height:1.6;
+    }
 
-.aviso{
-background:#fff4d6;
-padding:12px;
-border-left:5px solid orange;
-border-radius:6px;
-margin-top:10px;
-}
+    .seating{
+      text-align:center;
+      margin-top:20px;
+    }
 
-label{
-font-weight:bold;
-display:block;
-margin-top:12px;
-}
+    .seating img{
+      max-width:100%;
+      border:1px solid #ddd;
+      border-radius:8px;
+    }
 
-input,select,textarea{
-width:100%;
-padding:10px;
-border-radius:6px;
-border:1px solid #ccc;
-margin-top:5px;
-}
+    label{
+      font-weight:bold;
+      display:block;
+      margin-top:14px;
+      margin-bottom:6px;
+    }
 
-textarea{
-min-height:120px;
-}
+    input, select, textarea{
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font:inherit;
+      box-sizing:border-box;
+    }
 
-button{
-margin-top:15px;
-padding:12px 20px;
-background:#0b6fb8;
-color:white;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
 
-button:hover{
-background:#095a96;
-}
+    button{
+      margin-top:18px;
+      padding:12px 20px;
+      background:#0b6fb8;
+      color:white;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+      cursor:pointer;
+    }
 
-.seating{
-text-align:center;
-margin-top:20px;
-}
+    button:hover{
+      background:#095a96;
+    }
 
-.seating img{
-max-width:100%;
-border:1px solid #ddd;
-border-radius:8px;
-}
+    .estado{
+      margin-top:15px;
+      font-weight:bold;
+    }
 
-.estado{
-margin-top:15px;
-font-weight:bold;
-}
+    .estado.exito{
+      color:#166534;
+    }
 
-</style>
+    .estado.error{
+      color:#991b1b;
+    }
 
+    .resumenes{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .resumen-card{
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      padding:14px;
+      background:#fafafa;
+    }
+
+    .grupo{
+      font-weight:bold;
+      color:#0b6fb8;
+      margin-bottom:6px;
+    }
+
+    .secretario{
+      font-size:14px;
+      color:#4b5563;
+      margin-bottom:8px;
+    }
+
+    .vacio{
+      color:#6b7280;
+      font-style:italic;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="contenedor">
 
-<div class="contenedor">
+    <div class="tarjeta">
+      <h1>La pregunta del día</h1>
 
-<div class="tarjeta">
+      <div class="nota">
+        1. Lee las dos preguntas y responde de manera individual.<br>
+        2. Comparte tus ideas con tu grupo de mesa.<br>
+        3. Escribe tu nombre y selecciona tu grupo.<br>
+        4. El grupo elige un <b>secretario o secretaria</b>.<br>
+        5. El secretario o secretaria escribirá la <b>síntesis final del grupo</b> si le corresponde completar ese paso.
+      </div>
 
-<h1>La pregunta del día</h1>
+      <div class="aviso">
+        Debes escribir tu nombre e indicar quién es el secretario o la secretaria del grupo.
+      </div>
 
-<div class="nota">
-1. Lee las dos preguntas y responde de manera individual.<br>
-2. Comparte tus ideas con tu grupo de mesa.<br>
-3. Escribe tu nombre y selecciona tu grupo.<br>
-4. El grupo elige un <b>secretario o secretaria</b>.<br>
-5. El secretario o secretaria escribirá la <b>síntesis final del grupo</b>.
-</div>
+      <div class="seating">
+        <h3>Distribución de asientos</h3>
+        <img src="<?= seatingChartUrl ?>" alt="Distribución de asientos">
+      </div>
+    </div>
 
-<div class="aviso">
-Debes escribir tu nombre y también indicar quién fue el secretario o la secretaria del grupo.
-</div>
+    <div class="tarjeta">
+      <form id="formularioBellwork">
 
-<div class="seating">
-<h3>Distribución de asientos</h3>
-<img src="seating-chart.png" alt="Distribución de asientos">
-</div>
+        <label for="groupName">Grupo / Mesa</label>
+        <select id="groupName" name="groupName" required>
+          <option value="">Selecciona tu grupo</option>
+          <option>Grupo 1</option>
+          <option>Grupo 2</option>
+          <option>Grupo 3</option>
+          <option>Grupo 4</option>
+          <option>Grupo 5</option>
+        </select>
 
-</div>
+        <label for="studentName">Tu nombre</label>
+        <input id="studentName" type="text" name="studentName" placeholder="Escribe tu nombre" required>
 
+        <label for="secretario">Secretario/a del grupo</label>
+        <input id="secretario" type="text" name="secretario" placeholder="Nombre del secretario o la secretaria" required>
 
-<div class="tarjeta">
+        <label for="question1">1. ¿Por qué diferentes personas pueden tener opiniones distintas sobre el mismo problema ambiental?</label>
+        <textarea id="question1" name="question1" required></textarea>
 
-<form id="formularioBellwork">
+        <label for="question2">2. ¿Qué tipo de perspectivas crees que influyen cuando las personas discuten el cambio climático?</label>
+        <textarea id="question2" name="question2" required></textarea>
 
-<label>Grupo / Mesa</label>
-<select name="groupName" required>
+        <label for="sintesisGrupo">Síntesis final del grupo (solo si te corresponde completarla)</label>
+        <textarea id="sintesisGrupo" name="sintesisGrupo" placeholder="Escribe aquí la síntesis final del grupo"></textarea>
 
-<option value="">Selecciona tu grupo</option>
+        <button type="submit">Enviar respuestas</button>
 
-<option>Grupo 1</option>
-<option>Grupo 2</option>
-<option>Grupo 3</option>
-<option>Grupo 4</option>
-<option>Grupo 5</option>
+        <div id="estado" class="estado"></div>
+      </form>
+    </div>
 
-</select>
+    <div class="tarjeta">
+      <h2>Perspectivas de otros grupos</h2>
+      <div id="resumenes" class="resumenes">
+        <div class="vacio">Todavía no hay síntesis de grupo disponibles.</div>
+      </div>
+    </div>
 
-<label>Tu nombre</label>
-<input type="text" name="studentNames" placeholder="Escribe tu nombre" required>
+  </div>
 
-<label>Secretario/a del grupo</label>
-<input type="text" name="secretario" placeholder="Nombre del secretario o secretaria" required>
+  <script>
+    const SCRIPT_URL = window.location.href.split('?')[0];
 
-<label>1. ¿Por qué diferentes personas pueden tener opiniones distintas sobre el mismo problema ambiental?</label>
-<textarea name="question1" required></textarea>
+    const form = document.getElementById('formularioBellwork');
+    const estado = document.getElementById('estado');
+    const resumenes = document.getElementById('resumenes');
 
-<label>2. ¿Qué tipo de perspectivas crees que influyen cuando las personas discuten el cambio climático?</label>
-<textarea name="question2" required></textarea>
+    async function cargarSintesis() {
+      try {
+        const respuesta = await fetch(`${SCRIPT_URL}?action=summaries`);
+        const datos = await respuesta.json();
 
-<label>Síntesis final del grupo (solo la completa el secretario o la secretaria)</label>
-<textarea name="sintesisGrupo" placeholder="Síntesis del grupo"></textarea>
+        if (!Array.isArray(datos) || datos.length === 0) {
+          resumenes.innerHTML = '<div class="vacio">Todavía no hay síntesis de grupo disponibles.</div>';
+          return;
+        }
 
-<button type="submit">Enviar respuestas</button>
+        resumenes.innerHTML = datos.map(item => `
+          <div class="resumen-card">
+            <div class="grupo">${item.grupo}</div>
+            <div class="secretario">Secretario/a: ${item.secretario || 'No indicado'}</div>
+            <div>${item.sintesis}</div>
+          </div>
+        `).join('');
+      } catch (error) {
+        resumenes.innerHTML = '<div class="vacio">No fue posible cargar las síntesis de los grupos.</div>';
+      }
+    }
 
-<div id="estado" class="estado"></div>
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-</form>
+      const datos = new FormData(form);
 
-</div>
+      const payload = {
+        timestamp: new Date().toLocaleString(),
+        groupName: datos.get('groupName'),
+        studentName: datos.get('studentName'),
+        secretario: datos.get('secretario'),
+        question1: datos.get('question1'),
+        question2: datos.get('question2'),
+        sintesisGrupo: datos.get('sintesisGrupo')
+      };
 
-</div>
+      try {
+        const respuesta = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
 
-<script>
+        await respuesta.text();
 
-const SCRIPT_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
+        estado.className = 'estado exito';
+        estado.innerText = 'Respuestas enviadas correctamente.';
+        form.reset();
+        cargarSintesis();
+      } catch (error) {
+        estado.className = 'estado error';
+        estado.innerText = 'Error al enviar las respuestas.';
+      }
+    });
 
-const form = document.getElementById("formularioBellwork");
-const estado = document.getElementById("estado");
-
-form.addEventListener("submit", async function(e){
-
-e.preventDefault();
-
-const datos = new FormData(form);
-
-const payload = {
-
-timestamp: new Date().toLocaleString(),
-
-groupName: datos.get("groupName"),
-
-studentNames: datos.get("studentNames"),
-
-secretario: datos.get("secretario"),
-
-question1: datos.get("question1"),
-
-question2: datos.get("question2"),
-
-sintesisGrupo: datos.get("sintesisGrupo")
-
-};
-
-try{
-
-await fetch(SCRIPT_URL,{
-
-method:"POST",
-
-mode:"no-cors",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body: JSON.stringify(payload)
-
-});
-
-estado.innerText="Respuestas enviadas correctamente.";
-
-form.reset();
-
-}
-
-catch(error){
-
-estado.innerText="Error al enviar las respuestas.";
-
-}
-
-});
-
-</script>
-
+    cargarSintesis();
+  </script>
 </body>
 </html>
